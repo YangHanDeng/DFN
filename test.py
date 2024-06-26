@@ -35,12 +35,12 @@ if __name__ == "__main__":
     for audio in tqdm(audio_list):
         clean_path = os.path.join(clean_dir, audio)
         clean_audio, sr = sf.read(clean_path)
-        # if sr != 16000:
-        #     clean_audio = librosa.resample(clean_audio, orig_sr=sr, target_sr=16000)
+        if sr != 16000:
+            clean_audio = librosa.resample(clean_audio, orig_sr=sr, target_sr=16000)
         enh_path = os.path.join(enh_dir , audio)
         enh_audio, sr = sf.read(enh_path)
-        # if sr != 16000:
-        #     enh_audio = librosa.resample(enh_audio, orig_sr=sr, target_sr=16000)
+        if sr != 16000:
+            enh_audio = librosa.resample(enh_audio, orig_sr=sr, target_sr=16000)
         metrics = compute_metrics(clean_audio, enh_audio, 16000, 0)
         metrics = np.array(metrics)
         metrics_total += metrics
